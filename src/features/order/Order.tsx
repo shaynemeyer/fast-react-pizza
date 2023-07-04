@@ -78,7 +78,7 @@ function Order() {
   );
 }
 
-export async function loader({ params }: { params: { orderId: string } }) {
+export async function loader({ params }) {
   const order = (await getOrder(params.orderId)) as orderItem;
   return order;
 }
