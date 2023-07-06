@@ -5,3 +5,9 @@ export interface cartItem {
   unitPrice: number;
   totalPrice: number;
 }
+
+export interface cartState {
+  cart: {
+    cart: Array<cartItem>;
+  };
+}
