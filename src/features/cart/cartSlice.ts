@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { cartItem, cartState } from '../../types/cart';
+import { cartItem, cartState, shoppingCart } from '../../types/cart';
 
 const initialState = {
   cart: [],
@@ -9,15 +9,15 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action) {
+    addItem(state: shoppingCart, action) {
       // payload = newItem
       state.cart.push(action.payload);
     },
-    deleteItem(state, action) {
+    deleteItem(state: shoppingCart, action) {
       // payload = pizzaId
-      state.cart = state.cart.filter((c) => c.pizzaId === action.payload);
+      state.cart = state.cart.filter((c) => c.pizzaId !== action.payload);
     },
-    increaseItemQuantity(state, action) {
+    increaseItemQuantity(state: shoppingCart, action) {
       // payload = pizzaId
       const item = state.cart.find((c) => c.pizzaId === action.payload);
 
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
         item.totalPrice = item?.quantity * item?.unitPrice;
       }
     },
-    decreaseItemQuantity(state, action) {
+    decreaseItemQuantity(state: shoppingCart, action) {
       // payload = pizzaId
       const item = state.cart.find((c) => c.pizzaId === action.payload);
 
@@ -35,7 +35,7 @@ const cartSlice = createSlice({
         item.totalPrice = item?.quantity * item?.unitPrice;
       }
     },
-    clearCart(state, action) {
+    clearCart(state: shoppingCart) {
       state.cart = [];
     },
   },
@@ -51,6 +51,8 @@ export const {
 
 export default cartSlice.reducer;
 
+export const getCart = (state: cartState) => state.cart.cart;
+
 export const getTotalCartQuantity = (state: cartState) =>
   state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -59,3 +61,6 @@ export const getTotalCartPrice = (state: cartState) =>
     (sum: number, item: cartItem) => sum + item.totalPrice,
     0
   );
+
+export const getCurrentQuantityById = (id: number) => (state: cartState) =>
+  state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;

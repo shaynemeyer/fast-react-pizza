@@ -7,7 +7,9 @@ export interface cartItem {
 }
 
 export interface cartState {
-  cart: {
-    cart: Array<cartItem>;
-  };
+  cart: shoppingCart;
+}
+
+export interface shoppingCart {
+  cart: Array<cartItem>;
 }
