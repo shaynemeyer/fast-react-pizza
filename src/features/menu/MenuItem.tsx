@@ -2,7 +2,11 @@ import { menuItem } from '../../types/menu';
 import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
 
-function MenuItem({ pizza }: { pizza: menuItem }) {
+interface MenuItemProps {
+  pizza: menuItem
+}
+
+function MenuItem({ pizza }: MenuItemProps) {
   const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
