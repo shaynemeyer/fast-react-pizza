@@ -44,7 +44,7 @@ function CreateOrder() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
-  const formErrors = useActionData() as { phone?: string };
+  const formErrors = useActionData() as formFields;
 
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
@@ -58,6 +58,7 @@ function CreateOrder() {
           <label>First Name</label>
           <input className="input" type="text" name="customer" required />
         </div>
+        {formErrors?.customer && <p>{formErrors.customer}</p>}
 
         <div>
           <label>Phone number</label>
@@ -72,6 +73,7 @@ function CreateOrder() {
           <div>
             <input className="input" type="text" name="address" required />
           </div>
+          {formErrors?.address && <p>{formErrors.address}</p>}
         </div>
 
         <div>
@@ -88,7 +90,7 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button disabled={isSubmitting}>
+          <Button type="primary" disabled={isSubmitting}>
             {isSubmitting ? 'Placing order...' : 'Order now'}
           </Button>
         </div>
