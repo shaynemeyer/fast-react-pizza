@@ -5,7 +5,7 @@ interface ButtonProps {
   to?: string;
   disabled?: boolean;
   type?: string;
-  onClick?: () => void;
+  onClick?: (_) => void;
 }
 function Button({
   children,
